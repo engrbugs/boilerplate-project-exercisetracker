@@ -46,32 +46,47 @@ app.post("/api/exercise/new-user", (req, res) => {
 
     users.push(newUser);
 
-    return res.json(newUser);
+    res.json(newUser);
 });
 
-// Not found middleware
-app.use((req, res, next) => {
-  return next({status: 404, message: 'not found'})
-})
 
-// Error Handling middleware
-app.use((err, req, res, next) => {
-  let errCode, errMessage
+app.get("/api/exercise/users", (req, res) => {
+  console.log(users);
+  res.json(users);
+});
 
-  if (err.errors) {
-    // mongoose validation error
-    errCode = 400 // bad request
-    const keys = Object.keys(err.errors)
-    // report the first validation error
-    errMessage = err.errors[keys[0]].message
-  } else {
-    // generic or custom error
-    errCode = err.status || 500
-    errMessage = err.message || 'Internal Server Error'
-  }
-  res.status(errCode).type('txt')
-    .send(errMessage)
-})
+
+
+
+
+
+
+
+
+
+// // Not found middleware
+// app.use((req, res, next) => {
+//   return next({status: 404, message: 'not found'})
+// })
+
+// // Error Handling middleware
+// app.use((err, req, res, next) => {
+//   let errCode, errMessage
+
+//   if (err.errors) {
+//     // mongoose validation error
+//     errCode = 400 // bad request
+//     const keys = Object.keys(err.errors)
+//     // report the first validation error
+//     errMessage = err.errors[keys[0]].message
+//   } else {
+//     // generic or custom error
+//     errCode = err.status || 500
+//     errMessage = err.message || 'Internal Server Error'
+//   }
+//   res.status(errCode).type('txt')
+//     .send(errMessage)
+// })
 
 app.listen(port, function () {
   console.log("Node.js listening (v0.0.1) ... " + port);
