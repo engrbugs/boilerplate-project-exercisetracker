@@ -10,6 +10,7 @@ require("dotenv").config();
 var cors = require("cors");
 const bodyParser = require("body-parser");
 const shortid = require("shortid");
+const { resolve } = require("path");
 
 var app = express();
 
@@ -34,6 +35,11 @@ app.get('/', (req, res) => {
 });
 
 var users = [];
+const exercises = [];
+
+function getUsernameById(id) {
+  return users.find(user => user._id === id).username;
+} 
 
 app.post("/api/exercise/new-user", (req, res) => {
     console.log('hello');
@@ -57,6 +63,30 @@ app.get("/api/exercise/users", (req, res) => {
 
 
 
+app.post("/api/exercise/add", (req, res) => {
+  console.log('hello2');
+  const { userId, description, duration, date } = req.body;
+
+  const dateObj = date === undefined ? new Date() : date;
+  
+  console.log(userId);
+
+  const newExercise = {
+    _id: userId,
+    description,
+    duration,
+    date: dateObj.toString()
+  }
+
+  exercises.push(newExercise);
+
+  console.log(getUsernameById(userId));
+  res.json({
+    ...newExercise,
+    username: getUsernameById(userId)
+  });
+
+});
 
 
 
