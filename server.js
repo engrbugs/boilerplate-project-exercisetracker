@@ -66,15 +66,16 @@ app.get("/api/exercise/users", (req, res) => {
 app.post("/api/exercise/add", (req, res) => {
   const { userId, description, duration, date } = req.body;
 
-  const dateObj = date === undefined ? new Date() : date;
+  const dateObj = date === undefined ? new Date().toISOString().substring(0, 10) : date;
   
   console.log(userId, description, duration, date);
+
 
   const newExercise = {
     _id: userId,
     description,
     duration,
-    date: dateObj.toString()
+    date
   }
 
   exercises.push(newExercise);
