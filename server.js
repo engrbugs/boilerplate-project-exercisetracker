@@ -52,7 +52,7 @@ app.post("/api/exercise/new-user", (req, res) => {
     users.push(newUser);
 
     res.json(newUser);
-    console.log(users);
+    console.log(newUser);
 });
 
 
