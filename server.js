@@ -1,16 +1,31 @@
-const express = require('express')
-const app = express()
-const bodyParser = require('body-parser')
+"use strict";
 
-const cors = require('cors')
+var express = require("express");
+var mongo = require("mongodb");
+var mongoose = require("mongoose");
+var dns = require("dns");
 
-const mongoose = require('mongoose')
-// mongoose.connect(process.env.MLAB_URI || 'mongodb://localhost/exercise-track' )
+require("dotenv").config();
 
-app.use(cors())
+var cors = require("cors");
+const bodyParser = require("body-parser");
+const shortid = require("shortid");
 
-app.use(bodyParser.urlencoded({extended: false}))
-app.use(bodyParser.json())
+var app = express();
+
+// Basic Configuration
+var port = process.env.PORT || 3000;
+
+/** this project needs a db !! **/
+
+
+
+app.use(cors());
+
+/** this project needs to parse POST bodies **/
+// you should mount the body-parser here
+app.use(bodyParser.urlencoded({ extended: false }));
+
 
 
 app.use(express.static('public'))
@@ -18,6 +33,21 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html')
 });
 
+var users = [];
+
+app.post("/api/exercise/new-user", (req, res) => {
+    console.log('hello');
+    const { username } = req.body;
+
+    const newUser = {
+      username,
+      _id: shortid.generate()
+    }
+
+    users.push(newUser);
+
+    return res.json(newUser);
+});
 
 // Not found middleware
 app.use((req, res, next) => {
@@ -43,6 +73,6 @@ app.use((err, req, res, next) => {
     .send(errMessage)
 })
 
-const listener = app.listen(process.env.PORT || 3000, () => {
-  console.log('Your app is listening on port(v0.0.1) ' + listener.address().port)
-})
+app.listen(port, function () {
+  console.log("Node.js listening (v0.0.1) ... " + port);
+});
