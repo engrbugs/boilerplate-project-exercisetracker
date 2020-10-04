@@ -75,7 +75,7 @@ app.post("/api/exercise/add", (req, res) => {
     _id: userId,
     description,
     duration,
-    date
+    date: new Date(date).toDateString()
   }
 
   exercises.push(newExercise);
