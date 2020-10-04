@@ -53,9 +53,9 @@ app.post("/api/exercise/new-user", (req, res) => {
     }
 
     users.push(newUser);
-
+    console.log(newUser);
     res.json(newUser);
-    // console.log(newUser);
+    
 });
 
 
