@@ -71,8 +71,7 @@ app.post("/api/exercise/add", (req, res) => {
   // console.log(new Date(Date.now()).toUTCString().substring(0, 16).replace(/,/, ""));
   let dateObj = ( date === undefined || date === '' )  ? new Date(Date.now()).toUTCString().substring(0, 16).replace(/,/, "") : new Date(date).toUTCString().substring(0, 16).replace(/,/, "");
   
-  dateObj = new Date(date);
-
+  console.log(dateObj)
   if (dateObj === 'Invalid Date') {
     dateObj = new Date(Date.now()).toUTCString().substring(0, 16).replace(/,/, "");
   };
@@ -85,7 +84,7 @@ app.post("/api/exercise/add", (req, res) => {
     _id: userId,
     description,
     duration: parseInt(duration),
-    date: dateObj.toUTCString().substring(0, 16).replace(/,/, ""),
+    date: dateObj,
     username: getUsernameById(userId)
   }
 
