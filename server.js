@@ -66,16 +66,16 @@ app.get("/api/exercise/users", (req, res) => {
 app.post("/api/exercise/add", (req, res) => {
   const { userId, description, duration, date } = req.body;
 
-  const dateObj = date === '' ? new Date().toISOString().substring(0, 10) : new Date(date);
+  const dateObj = date === '' ? new Date().toISOString().substring(0, 10) : new Date(date).toUTCString().substring(0, 16).replace(/,/, "");
   
   console.log(userId, description, duration, date);
-  console.log(dateObj.toUTCString().substring(0, 10))
+  console.log(dateObj);
 
   const newExercise = {
     _id: userId,
     description,
     duration,
-    date: new Date(dateObj).toDateString(),
+    date: dateObj,
     username: getUsernameById(userId)
   }
 
