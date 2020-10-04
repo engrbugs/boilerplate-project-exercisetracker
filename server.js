@@ -71,7 +71,7 @@ app.post("/api/exercise/add", (req, res) => {
   // console.log(new Date(Date.now()).toUTCString().substring(0, 16).replace(/,/, ""));
   const dateObj = ( date === undefined || date === '' )  ? new Date(Date.now()).toUTCString().substring(0, 16).replace(/,/, "") : new Date(date).toUTCString().substring(0, 16).replace(/,/, "");
   
-  const dateObj = new Date(date);
+  dateObj = new Date(date);
 
   if (dateObj === 'Invalid Date') {
     new Date(Date.now()).toUTCString().substring(0, 16).replace(/,/, "");
