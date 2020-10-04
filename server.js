@@ -89,6 +89,16 @@ app.post("/api/exercise/add", (req, res) => {
 });
 
 
+app.get("/api/exercise/log", (req, res) => {
+  const { userId, from, to, limit } = req.query;
+
+  console.log('LOG:', userId, from, to, limit);
+
+  res.json({test: 'test'});
+
+});
+
+
 
 
 
