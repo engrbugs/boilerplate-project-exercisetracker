@@ -43,6 +43,7 @@ function getUsernameById(id) {
 
 app.post("/api/exercise/new-user", (req, res) => {
     const { username } = req.body;
+    console.log('NEW:', username);
 
     const newUser = {
       username,
@@ -52,14 +53,42 @@ app.post("/api/exercise/new-user", (req, res) => {
     users.push(newUser);
 
     res.json(newUser);
-    console.log(newUser);
+    // console.log(newUser);
 });
 
 
 app.get("/api/exercise/users", (req, res) => {
-  console.log(users);
+  console.log('USERS:',users);
   res.json(users);
 });
+
+
+
+app.post("/api/exercise/add", (req, res) => {
+  const { userId, description, duration, date } = req.body;
+
+  const dateObj = date === '' ? new Date().toISOString().substring(0, 10) : new Date(date).toUTCString().substring(0, 16).replace(/,/, "");
+  
+  console.log('ADD:', userId, description, duration, date);
+  // console.log(dateObj);
+
+  const newExercise = {
+    _id: userId,
+    description,
+    duration: parseInt(duration),
+    date: dateObj,
+    username: getUsernameById(userId)
+  }
+
+  exercises.push(newExercise);
+
+  // console.log(getUsernameById(userId));
+  // console.log(newExercise);
+  res.json(newExercise);
+
+});
+
+
 
 
 
