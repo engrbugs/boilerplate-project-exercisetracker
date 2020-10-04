@@ -74,7 +74,7 @@ app.post("/api/exercise/add", (req, res) => {
   dateObj = new Date(date);
 
   if (dateObj === 'Invalid Date') {
-    new Date(Date.now()).toUTCString().substring(0, 16).replace(/,/, "");
+    dateObj = new Date(Date.now()).toUTCString().substring(0, 16).replace(/,/, "");
   };
 
   console.log('ADD:', userId, description, duration, date);
