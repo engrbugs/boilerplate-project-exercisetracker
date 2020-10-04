@@ -39,7 +39,9 @@ const exercises = [];
 
 function getUsernameById(id) {
   return users.find(user => user._id === id).username;
-} 
+};
+
+const getExcersicesFromUserWithId = (id) => exercises.filter(exe => exe._id === id);
 
 app.post("/api/exercise/new-user", (req, res) => {
     const { username } = req.body;
@@ -94,7 +96,28 @@ app.get("/api/exercise/log", (req, res) => {
 
   console.log('LOG:', userId, from, to, limit);
 
-  res.json({test: 'test'});
+  let log = getExcersicesFromUserWithId(userId);
+
+  if (from) {
+    const fromDate = new Date(from);
+    log = log.filter( exe => new Date(exe.date) >= fromDate);
+  }
+
+  if (to) {
+    const toDate = new Date(to);
+    log = log.filter(exe => new Date(exe.date) <= toDate )
+  }
+
+  if (limit) {
+    log = log.slice(0, +limit);
+  }
+  
+  res.json({
+    _id: userId,
+    username: getUsernameById(userId),
+    count: log.length,
+    log
+  });
 
 });
 
