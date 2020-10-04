@@ -63,34 +63,6 @@ app.get("/api/exercise/users", (req, res) => {
 
 
 
-app.post("/api/exercise/add", (req, res) => {
-  const { userId, description, duration, date } = req.body;
-
-  const dateObj = date === '' ? new Date().toISOString().substring(0, 10) : new Date(date).toUTCString().substring(0, 16).replace(/,/, "");
-  
-  console.log(userId, description, duration, date);
-  console.log(dateObj);
-
-  const newExercise = {
-    _id: userId,
-    description,
-    duration: parseInt(duration),
-    date: dateObj,
-    username: getUsernameById(userId)
-  }
-
-  exercises.push(newExercise);
-
-  console.log(getUsernameById(userId));
-  console.log(newExercise);
-  res.json(newExercise);
-
-});
-
-
-
-
-
 
 
 // // Not found middleware
