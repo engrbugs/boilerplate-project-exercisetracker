@@ -69,11 +69,11 @@ app.get("/api/exercise/users", (req, res) => {
 app.post("/api/exercise/add", (req, res) => {
   const { userId, description, duration, date } = req.body;
   // console.log(new Date(Date.now()).toUTCString().substring(0, 16).replace(/,/, ""));
-  let dateObj = ( date === undefined || date === '' )  ? new Date(Date.now()).toUTCString().substring(0, 16).replace(/,/, "") : new Date(date).toUTCString().substring(0, 16).replace(/,/, "");
+  let dateObj = ( date === undefined || date === '' )  ? new Date().toDateString() : new Date(date).toDateString();
   
   console.log(dateObj)
   if (dateObj === 'Invalid Date') {
-    dateObj = new Date(Date.now()).toUTCString().substring(0, 16).replace(/,/, "");
+    dateObj = new Date().toDateString();
   };
 
   console.log('ADD:', userId, description, duration, date);
