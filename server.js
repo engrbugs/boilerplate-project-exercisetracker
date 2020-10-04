@@ -74,7 +74,7 @@ app.post("/api/exercise/add", (req, res) => {
   const newExercise = {
     _id: userId,
     description,
-    duration,
+    duration: parseInt(duration),
     date: dateObj,
     username: getUsernameById(userId)
   }
