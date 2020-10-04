@@ -53,7 +53,7 @@ app.post("/api/exercise/new-user", (req, res) => {
     }
 
     users.push(newUser);
-    console.log(newUser);
+    //console.log(newUser);
     res.json(newUser);
     
 });
@@ -69,7 +69,7 @@ app.get("/api/exercise/users", (req, res) => {
 app.post("/api/exercise/add", (req, res) => {
   const { userId, description, duration, date } = req.body;
 
-  const dateObj = date === '' ? new Date().toISOString().substring(0, 10) : new Date(date).toUTCString().substring(0, 16).replace(/,/, "");
+  const dateObj = date === '' ? new Date().toISOString().toUTCString().substring(0, 16).replace(/,/, "") : new Date(date).toUTCString().substring(0, 16).replace(/,/, "");
   
   console.log('ADD:', userId, description, duration, date);
   // console.log(dateObj);
@@ -85,7 +85,7 @@ app.post("/api/exercise/add", (req, res) => {
   exercises.push(newExercise);
 
   // console.log(getUsernameById(userId));
-  // console.log(newExercise);
+  console.log(newExercise);
   res.json(newExercise);
 
 });
