@@ -68,8 +68,8 @@ app.get("/api/exercise/users", (req, res) => {
 
 app.post("/api/exercise/add", (req, res) => {
   const { userId, description, duration, date } = req.body;
-
-  const dateObj = date === '' ? new Date().toUTCString().substring(0, 16).replace(/,/, "") : new Date(date).toUTCString().substring(0, 16).replace(/,/, "");
+  console.log(new Date(Date.now()).toUTCString().substring(0, 16).replace(/,/, ""));
+  const dateObj = date === '' ? new Date(Date.now()).toUTCString().substring(0, 16).replace(/,/, "") : new Date(date).toUTCString().substring(0, 16).replace(/,/, "");
   
   console.log('ADD:', userId, description, duration, date);
   // console.log(dateObj);
